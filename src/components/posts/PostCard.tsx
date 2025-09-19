@@ -1,0 +1,49 @@
+"use client";
+import Image from "next/image";
+import React from "react";
+import { PostActionBtns } from "./PostActionBtns";
+import { Post } from "@/types/post";
+import { timeAgo } from "@/lib/timeAgo";
+
+export const PostCard = ({ post }: { post: Post }) => {
+  return (
+    <div className="flex gap-3 border-b-1 border-[#17191B] py-2">
+      <div>
+        <Image
+          className="rounded-full"
+          alt=""
+          src={post.author.profileImage}
+          width={40}
+          height={40}
+        />
+      </div>
+      <div className="post-wrap flex flex-col gap-3 flex-1">
+        <div className="flex items-center justify-between">
+          <div className="author-info flex items-center">
+            <span className="font-bold">{post.author.name}</span>
+            <span className="text-gray-500 text-xs ml-1">
+              @{post.author.username}
+            </span>
+          </div>
+          <div className="text-gray-500 text-xs">{timeAgo(post.createdAt)}</div>
+        </div>
+        <div>{post.content}</div>
+        {post.images && post.images.length > 0 && (
+          <div className="img-content">
+            {post.images.map((image, index) => (
+              <Image
+                key={index}
+                className="rounded-2xl"
+                alt=""
+                src={image}
+                width={500}
+                height={300}
+              />
+            ))}
+          </div>
+        )}
+        <PostActionBtns post={post} />
+      </div>
+    </div>
+  );
+};
