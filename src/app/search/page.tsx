@@ -3,7 +3,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <LayoutWrapper>
+    <LayoutWrapper title="검색">
       <div>검색하기</div>
     </LayoutWrapper>
   );
