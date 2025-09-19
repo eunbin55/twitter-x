@@ -4,18 +4,13 @@ import React from "react";
 import { PostActionBtns } from "./PostActionBtns";
 import { Post } from "@/types/post";
 import { timeAgo } from "@/lib/timeAgo";
+import { UserProfile } from "../users/UserProfile";
 
 export const PostCard = ({ post }: { post: Post }) => {
   return (
     <div className="flex gap-3 border-b-1 border-[#17191B] py-2">
       <div>
-        <Image
-          className="rounded-full"
-          alt=""
-          src={post.author.profileImage}
-          width={40}
-          height={40}
-        />
+        <UserProfile src={post.author.profileImage} />
       </div>
       <div className="post-wrap flex flex-col gap-3 flex-1">
         <div className="flex items-center justify-between">
