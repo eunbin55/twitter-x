@@ -1,10 +1,10 @@
 import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
-import { PostList } from "@/components/PostList";
+import React from "react";
 
-export default function Home() {
+export default function page() {
   return (
     <LayoutWrapper>
-      <PostList />
+      <div>검색하기</div>
     </LayoutWrapper>
   );
 }
