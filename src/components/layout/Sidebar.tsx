@@ -4,10 +4,18 @@ import React from "react";
 export const Sidebar = () => {
   return (
     <nav className="flex flex-col space-y-2">
-      <SidebarItem title="홈" icon={<House />} href="/" />
-      <SidebarItem title="검색" icon={<Search />} href="/search" />
+      <SidebarItem title="홈" icon={<House className="h-4 w-4" />} href="/" />
+      <SidebarItem
+        title="검색"
+        icon={<Search className="h-4 w-4" />}
+        href="/search"
+      />
       {/* <SidebarItem title="북마크" icon={<Bookmark />} href="/bookmark" /> */}
-      <SidebarItem title="게시하기" icon={<PencilLine />} href="/compose" />
+      <SidebarItem
+        title="게시하기"
+        icon={<PencilLine className="h-4 w-4" />}
+        href="/compose"
+      />
     </nav>
   );
 };

@@ -8,14 +8,14 @@ export const Header = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
-    <div className="flex justify-between items-center h-14">
+    <div className="flex justify-between items-center h-14 fixed inset-0 bg-white">
       <div>profile</div>
       <Link href={"/"}>
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/450px-X_logo_2023.svg.png"
           alt=""
           width={30}
-          height={30}
+          height={27}
         />
       </Link>
       <div className="flex items-center gap-2 border-2 border-gray-500 rounded-2xl">
