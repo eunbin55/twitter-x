@@ -41,6 +41,7 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
+// 포스트 생성
 export const createPost = createAsyncThunk(
   "posts/createPost",
   async (post: Post, { rejectWithValue }) => {
@@ -51,6 +52,34 @@ export const createPost = createAsyncThunk(
       return rejectWithValue(
         error ?? { message: "게시하기 중 오류가 발생했습니다." }
       );
+    }
+  }
+);
+
+// 좋아요 토글
+export const toggleLike = createAsyncThunk(
+  "posts/toggleLike",
+  async (postId: number, { rejectWithValue }) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      // 로컬 상태 업데이트
+      return { postId };
+    } catch (error) {
+      return rejectWithValue(error ?? { message: "오류가 발생했습니다." });
+    }
+  }
+);
+
+// 재게시 토글
+export const toggleRetweet = createAsyncThunk(
+  "posts/toggleRetweet",
+  async (postId: number, { rejectWithValue }) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      // 로컬 상태 업데이트
+      return { postId };
+    } catch (error) {
+      return rejectWithValue(error ?? { message: "오류가 발생했습니다." });
     }
   }
 );
@@ -84,6 +113,38 @@ export const postSlice = createSlice({
         state.error = null;
       })
       .addCase(createPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as PostError;
+      })
+      .addCase(toggleLike.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(toggleLike.fulfilled, (state, action) => {
+        const post = state.posts.find(
+          (post) => post.id === action.payload.postId
+        );
+        if (post) {
+          post.isLiked = !post.isLiked;
+          post.likes += post.isLiked ? 1 : -1;
+        }
+      })
+      .addCase(toggleLike.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as PostError;
+      })
+      .addCase(toggleRetweet.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(toggleRetweet.fulfilled, (state, action) => {
+        const post = state.posts.find(
+          (post) => post.id === action.payload.postId
+        );
+        if (post) {
+          post.isRetweeted = !post.isRetweeted;
+          post.retweets += post.isRetweeted ? 1 : -1;
+        }
+      })
+      .addCase(toggleRetweet.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as PostError;
       });
