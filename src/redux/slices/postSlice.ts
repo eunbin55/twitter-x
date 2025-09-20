@@ -2,12 +2,15 @@ import { Post } from "@/types/post";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import postsData from "../../../data/posts.json";
 
+interface PostError {
+  message: string;
+}
 interface PostState {
   posts: Post[];
   page: number;
   hasMore: boolean;
   loading: boolean;
-  error: string;
+  error: PostError | null;
 }
 
 const initialState: PostState = {
@@ -15,7 +18,7 @@ const initialState: PostState = {
   page: 1,
   hasMore: true,
   loading: false,
-  error: "",
+  error: null,
 };
 
 // 무한 스크롤용
@@ -30,8 +33,24 @@ export const fetchPosts = createAsyncThunk(
         query.page * limit
       );
       return data;
-    } catch (error: unknown) {
-      return rejectWithValue(error);
+    } catch (error) {
+      return rejectWithValue(
+        error ?? { message: "게시물 가져오기 중 오류가 발생했습니다." }
+      );
+    }
+  }
+);
+
+export const createPost = createAsyncThunk(
+  "posts/createPost",
+  async (post: Post, { rejectWithValue }) => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // 포스트 시뮬레이션
+      return post;
+    } catch (error) {
+      return rejectWithValue(
+        error ?? { message: "게시하기 중 오류가 발생했습니다." }
+      );
     }
   }
 );
@@ -50,11 +69,23 @@ export const postSlice = createSlice({
         state.posts = [...state.posts, ...action.payload];
         state.page += 1;
         state.hasMore = action.payload.length > 0;
-        state.error = "";
+        state.error = null;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string;
+        state.error = action.payload as PostError;
+      })
+      .addCase(createPost.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createPost.fulfilled, (state, action) => {
+        state.loading = false;
+        state.posts = [action.payload, ...state.posts];
+        state.error = null;
+      })
+      .addCase(createPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as PostError;
       });
   },
 });
