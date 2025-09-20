@@ -4,7 +4,7 @@ export interface Post {
   id: number;
   author: User;
   content: string;
-  images?: string[];
+  images: string[] | [];
   createdAt: string;
   likes: number;
   retweets: number;

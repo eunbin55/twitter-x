@@ -9,7 +9,7 @@ export const Sidebar = () => {
       <Link href={"/"}>
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/450px-X_logo_2023.svg.png"
-          alt=""
+          alt="Logo"
           width={30}
           height={27}
         />

@@ -3,6 +3,12 @@ import React from "react";
 
 export const UserProfile = ({ src }: { src: string }) => {
   return (
-    <Image className="rounded-full" alt="" src={src} width={40} height={40} />
+    <Image
+      className="rounded-full"
+      alt="Profile"
+      src={src}
+      width={40}
+      height={40}
+    />
   );
 };

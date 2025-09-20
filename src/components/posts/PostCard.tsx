@@ -23,13 +23,13 @@ export const PostCard = ({ post }: { post: Post }) => {
           <div className="text-gray-500 text-xs">{timeAgo(post.createdAt)}</div>
         </div>
         <div>{post.content}</div>
-        {post.images && post.images.length > 0 && (
+        {post.images.length > 0 && (
           <div className="img-content">
             {post.images.map((image, index) => (
               <Image
                 key={index}
                 className="rounded-2xl"
-                alt=""
+                alt="PostImage"
                 src={image}
                 width={500}
                 height={300}
