@@ -70,7 +70,7 @@ export const toggleLike = createAsyncThunk(
   "posts/toggleLike",
   async (postId: number, { rejectWithValue }) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       // 로컬 상태 업데이트
       return { postId };
     } catch (error) {
@@ -84,7 +84,7 @@ export const toggleRetweet = createAsyncThunk(
   "posts/toggleRetweet",
   async (postId: number, { rejectWithValue }) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 100));
       // 로컬 상태 업데이트
       return { postId };
     } catch (error) {

@@ -19,7 +19,7 @@ export const Header = ({ title }: { title?: string }) => {
     <div className="flex justify-between items-center h-14 ml-40 p-4 fixed inset-0 bg-white">
       <div className="text-xl font-bold">{!title ? "홈" : title}</div>
       {segment !== "compose" && (
-        <div className="flex items-center gap-2 border-2 border-gray-500 rounded-2xl">
+        <div className="flex items-center gap-2 border-2 border-gray-500 text-gray-500 rounded-2xl">
           <Search className="ml-2" />
           <input
             type="text"

@@ -2,21 +2,24 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { fetchPosts } from "@/redux/slices/postSlice";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { PostCard } from "./PostCard";
 
 export const PostSearch = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const [query, setQuery] = useState("");
   const dispatch = useAppDispatch();
 
   const { posts, error } = useAppSelector((state) => state.post);
 
   useEffect(() => {
-    if (query) {
-      dispatch(fetchPosts({ page: 1, searchText: query }));
+    const searchQuery = searchParams.get("query") || "";
+    setQuery(searchQuery);
+
+    if (searchQuery) {
+      dispatch(fetchPosts({ page: 1, searchText: searchQuery }));
     }
-  }, [dispatch, query]);
+  }, [dispatch, searchParams]);
 
   if (error) return <div> {error.message}</div>;
   return (

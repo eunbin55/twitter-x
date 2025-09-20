@@ -17,11 +17,11 @@ export const Sidebar = () => {
         </div>
       </Link>
       <SidebarItem title="홈" icon={<House className="h-4 w-4" />} href="/" />
-      <SidebarItem
+      {/* <SidebarItem
         title="검색"
         icon={<Search className="h-4 w-4" />}
         href="/search"
-      />
+      /> */}
       {/* <SidebarItem title="북마크" icon={<Bookmark />} href="/bookmark" /> */}
       <SidebarItem
         title="게시하기"
