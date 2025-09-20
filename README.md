@@ -4,7 +4,7 @@
 
 1. **레포지토리 클론**
 ```bash
-git clone [레포지토리 주소]
+git clone https://github.com/eunbin55/twitter-x.git
 cd [프로젝트 폴더명]
 ```
 2. **패키지 설치**
