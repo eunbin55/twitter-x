@@ -13,6 +13,7 @@ npm install
 ```
 3. **실행**
 ```bash
+npm run build
 npm run start
 ```
 4. **웹 브라우저 접속**: http://localhost:3000
