@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 소셜 미디어 피드 서비스
 
-## Getting Started
+## 🚀 실행 방법
 
-First, run the development server:
-
+1. **레포지토리 클론**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [레포지토리 주소]
+cd [프로젝트 폴더명]
 ```
+2. **패키지 설치**
+```bash
+npm install
+```
+3. **실행**
+```bash
+npm run start
+```
+4. **웹 브라우저 접속**: http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ 사용한 기술 스택 및 선택 이유
+- **TypeScript**: 정적 타입 언어를 사용하여 개발 과정에서 발생할 수 있는 잠재적 오류를 줄이고, 코드의 가독성과 유지보수성을 높이기 위해 사용하였습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Redux Toolkit**: 전역 상태 관리를 위해 선택했습니다. 복잡한 UI 상태를 효율적으로 관리할 수 있었습니다. 특히, createSlice와 createAsyncThunk를 활용하여 코드 중복을 최소화했습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Tailwind CSS**: 요구사항에 다크모드 기능이 추가적으로 있어서 Tailwind 자체에서 다크모드 속성을 지원해서 사용했습니다. 
 
-## Learn More
+## ✅ 구현한 기능 목록
+### 메인 피드
+- **무한 스크롤**: 스크롤 시 다음 게시물을 자동으로 로드하여 끊김 없는 사용자 경험 제공
+- **게시물 카드**: 게시물 내용, 작성자 정보, 상호작용 버튼 등을 포함하는 UI 컴포넌트
 
-To learn more about Next.js, take a look at the following resources:
+### 게시물 작성 페이지
+- **입력 기능**: 텍스트 및 이미지 첨부 가능
+- **이미지 첨부**: 파일 업로드 시 미리보기를 제공하며, 여러 이미지를 첨부할 수 있음
+- **실시간 글자 수 카운터**: 사용자가 입력한 글자 수를 실시간으로 계산하여 표시, 280자 제한
+- **작성 완료 후 피드 반영**: 새로운 게시물이 작성되면 메인 피드에 즉시 추가
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 상호작용 기능
+- **좋아요, 리트윗, 북마크**: 버튼 클릭 시 관련 이벤트 발생
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 카운트 기능
+- **좋아요 및 리트윗**: 각 버튼 클릭 시 카운트 증가
 
-## Deploy on Vercel
+### 검색 기능
+- 게시 내용으로 검색하여 필터링된 결과를 표시
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 테스트 케이스 통과 현황
+| 테스트 케이스 종류 | 상세 항목                            | 통과 여부 |
+| ---------- | -------------------------------- | ----- |
+| Easy Level | ✅ 게시물 리스트가 정상적으로 로드되는가?          | 통과    |
+|            | ✅ 무한 스크롤 또는 페이지네이션이 작동하는가?       | 통과    |
+|            | ✅ 상대적 시간 표시가 정확한가?               | 통과    |
+|            | ✅ 좋아요 버튼이 정상 작동하는가?              | 통과    |
+|            | ✅ 리트윗 버튼이 정상 작동하는가?              | 통과    |
+|            | ✅ 게시물 작성 시 글자 수 제한이 적용되는가?       | 통과    |
+|            | ✅ 검색 기능이 정상 작동하는가?               | 통과    |
+|            | ⬜ 해시태그 클릭 시 해당 태그 검색 결과가 표시되는가?  | 미구현   |
+|            | ⬜ 반응형 디자인이 모바일에서 정상 작동하는가?       | 미구현   |
+|            | ⬜ 다크/라이트 모드 전환이 정상 작동하는가?        | 미구현   |
+| Hard Level | 🔥 성능 최적화: 1000개 이상 게시물의 가상화 스크롤 | 미구현   |
+|            | 🔥 실시간 업데이트: 새 게시물 자동 추가         | 통과    |
+|            | 🔥 오프라인 대응: 네트워크 끊김 시 캐시된 데이터 표시 | 미구현   |
+|            | 🔥 접근성: 키보드 네비게이션 및 스크린 리더 지원    | 미구현   |
+
+## 💡 추가 구현한 기능
+- **이미지 삭제 기능**: 게시물 작성 시 첨부된 이미지를 미리보기 화면에서 개별적으로 삭제 가능
+
+## 🤔 기술적 고민과 해결 과정
+### 무한 스크롤 구현
+- 이전에는 스크롤 이벤트를 활용하여 무한 스크롤을 구현하려 했으나, 성능과 안정성 문제로 실패한 경험이 있습니다.
+- 이를 개선하기 위해 IntersectionObserver를 사용했습니다. 마지막 요소를 관찰 대상으로 설정하여, 해당 요소가 뷰포트에 들어올 때만 다음 페이지 데이터를 로드하도록 구현함으로써 불필요한 연산을 최소화했습니다.
+- 그 결과, 더미 데이터 1000개를 한 번에 불러오는 기존 방식보다 렌더링 속도가 눈에 띄게 개선되었습니다.
+
+### 게시물 작성 및 피드 반영
+- 새로운 게시물을 작성하면 메인 피드에 즉시 반영되도록 구현했습니다.
+- 사용자가 작성 버튼을 누르는 순간, 실제 서버 업데이트 대신 로컬 상태(fetchData)에 우선 추가하는 방식으로 처리하여 빠른 사용자 피드백을 제공했습니다.
+- 이 접근 방식은 빠른 개발과 테스트를 가능하게 하며, 향후 서버 연동 시 쉽게 확장할 수 있도록 구조를 유지했습니다.
+
+### 상호작용 이벤트 및 상태 관리
+- 좋아요, 리트윗, 북마크 클릭 이벤트 Redux Toolkit으로 통합 관리하였습니다.
+- 이를 통해 개별 useState 사용 없이 불필요한 렌더링을 줄일 수 있었고, 무한 스크롤이나 검색 결과 페이지 등에서도 동일한 로직을 안정적으로 재사용할 수 있었습니다.
+
+### Tailwind CSS 
+- Tailwind CSS 사용 경험이 많지 않아 스타일링 과정에서 효율적인 시간 분배에 어려움이 있었습니다. 이로 인해 다크 모드와 반응형 UI를 완벽하게 구현하지는 못했지만, CSS 유틸리티 클래스의 조합에 대한 이해도를 높이는 좋은 기회였습니다.
+- **향후 계획**: 과제를 통해 얻은 경험을 바탕으로, 추후 개인 프로젝트에서 Tailwind CSS를 활용해 다크 모드와 복잡한 반응형 UI를 구현하며 숙련도를 높일 계획입니다.
+
+### useSearchParams build error
+- 개발 환경에서는 정상 동작했지만, 빌드 후 /search 페이지에서 오류가 발생했습니다.
+- 원인은 useSearchParams()가 클라이언트에서 동작하는 훅이지만, 빌드 과정에서는 자바스크립트가 로드되기 전까지 해당 페이지 전체가 빈 화면으로 렌더링되기 때문이었습니다.
+- 이를 해결하기 위해 PostSearch 컴포넌트를 <Suspense>로 감싸, 비동기 데이터를 기다리는 동안 로딩 상태를 표시하도록 수정했습니다.
+
+
+
+
+
+
+
+
+
