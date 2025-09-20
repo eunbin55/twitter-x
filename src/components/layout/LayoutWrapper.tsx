@@ -16,7 +16,7 @@ export const LayoutWrapper = ({
       </div>
       <div className="flex flex-1 ml-40">
         <Header title={title} />
-        <main className="flex-1 mt-14 p-4 border-x border-gray-200 dark:border-gray-700">
+        <main className="flex-1 mt-14 p-4 border-x border-gray-200">
           {children}
         </main>
       </div>

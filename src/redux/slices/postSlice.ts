@@ -21,18 +21,27 @@ const initialState: PostState = {
   error: null,
 };
 
-// 무한 스크롤용
+// 포스트 가져오기
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",
   async (query: { page: number; searchText?: string }, { rejectWithValue }) => {
     try {
       const limit = 10;
       await new Promise((resolve) => setTimeout(resolve, 1000)); // 로딩 시뮬레이션
-      const data = postsData.slice(
-        (query.page - 1) * limit,
-        query.page * limit
-      );
-      return data;
+
+      let filteredData = postsData;
+      if (query.searchText) {
+        const lowerSearch = query.searchText.toLowerCase();
+        filteredData = postsData.filter((post) =>
+          post.content.toLowerCase().includes(lowerSearch)
+        );
+      }
+
+      const data = query.searchText
+        ? filteredData
+        : filteredData.slice((query.page - 1) * limit, query.page * limit);
+
+      return { posts: data, isSearch: !!query.searchText };
     } catch (error) {
       return rejectWithValue(
         error ?? { message: "게시물 가져오기 중 오류가 발생했습니다." }
@@ -95,9 +104,13 @@ export const postSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = [...state.posts, ...action.payload];
-        state.page += 1;
-        state.hasMore = action.payload.length > 0;
+        if (action.payload.isSearch) {
+          state.posts = action.payload.posts;
+        } else {
+          state.posts = [...state.posts, ...action.payload.posts];
+          state.page += 1;
+        }
+        state.hasMore = action.payload.posts.length > 0;
         state.error = null;
       })
       .addCase(fetchPosts.rejected, (state, action) => {

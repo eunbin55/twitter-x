@@ -8,7 +8,7 @@ import { UserProfile } from "../users/UserProfile";
 
 export const PostCard = ({ post }: { post: Post }) => {
   return (
-    <div className="flex gap-3 border-b-1 border-[#17191B] py-2">
+    <div className="flex gap-3 border-b-1 border-gray-200 py-2">
       <div>
         <UserProfile src={post.author.profileImage} />
       </div>

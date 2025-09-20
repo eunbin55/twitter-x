@@ -7,12 +7,14 @@ export const Sidebar = () => {
   return (
     <nav className="flex flex-col space-y-2">
       <Link href={"/"}>
-        <Image
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/450px-X_logo_2023.svg.png"
-          alt="Logo"
-          width={30}
-          height={27}
-        />
+        <div className="px-2">
+          <Image
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/450px-X_logo_2023.svg.png"
+            alt="Logo"
+            width={30}
+            height={27}
+          />
+        </div>
       </Link>
       <SidebarItem title="홈" icon={<House className="h-4 w-4" />} href="/" />
       <SidebarItem
@@ -42,7 +44,7 @@ const SidebarItem = ({
   return (
     <Link
       href={href}
-      className="flex items-center p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full gap-3 cursor-pointer"
+      className="flex items-center p-2 hover:bg-gray-100 rounded-full gap-3 cursor-pointer"
     >
       {icon}
       <span>{title}</span>
