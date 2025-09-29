@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { Header } from "./Header";
 
@@ -9,14 +10,18 @@ export const LayoutWrapper = ({
   children: React.ReactNode;
   title?: string;
 }) => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="w-40 h-full p-4 bg-white fixed">
-        <Sidebar />
-      </div>
-      <div className="flex flex-1 ml-40">
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+      <div className="flex flex-col flex-1 lg:ml-64">
         <Header title={title} />
-        <main className="flex-1 mt-14 p-4 border-x border-gray-200">
+        <main className="flex-1 overflow-y-auto p-4 border-x border-gray-200">
           {children}
         </main>
       </div>
